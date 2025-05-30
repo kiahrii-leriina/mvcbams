@@ -1,6 +1,7 @@
 package mvcbams.controller;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,22 +39,43 @@ public class UserController {
 			}
 
 			mv.setViewName("createaccount.jsp");
-			return mv;
 
 		} catch (Exception e) {
 			mv.setViewName("landing.jsp");
 			mv.addObject("msg", "Invalid Email or Password");
-			return mv;
 		}
+		return mv;
+
 	}
+
 
 	@PostMapping("/register")
 	public ModelAndView register(@RequestParam String name, @RequestParam String email, @RequestParam String password,
 			@RequestParam long phone) {
-		
-		String jpql = "INSERT INTO Users ()";
+		ModelAndView mv = new ModelAndView();
+		try {
+			EntityTransaction et = em.getTransaction();
+			Users user = new Users();
+			user.setName(name);
+			user.setEmail(email);
+			user.setPassword(password);
+			user.setPhone(phone);
+			
+			et.begin();
+			user = em.merge(user);
+			if(user != null) {
+				System.out.printf("User saved succcessfully, "
+						+ "Id: %d | Name: %s | Email: %s | Password: %s | Phone: %d\n");
+			}
+			
+			mv.setViewName("landing.jsp");
+			mv.addObject("msg", "User saved successfully, please login");
+		}catch(Exception e) {
+			mv.setViewName("register.jsp");
+			mv.addObject("msg", "unable to save user try again");
+		}
+		return mv;
 
-		return null;
 	}
 
 }
