@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Register</title>
+<title>Transfer Money</title>
 <style>
     body {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -18,7 +19,7 @@
         height: 100vh;
     }
 
-    .register-container {
+    .transfer-container {
         background-color: #2e2e3e;
         padding: 30px 40px;
         border-radius: 12px;
@@ -26,10 +27,11 @@
         width: 400px;
     }
 
-    h2 {
+    h1 {
+        color: #ff9800;
         text-align: center;
-        color: #00bcd4;
         margin-bottom: 25px;
+        font-size: 1.5rem;
     }
 
     label {
@@ -39,7 +41,7 @@
         color: #cccccc;
     }
 
-    input[type="text"], input[type="password"] {
+    input[type="text"] {
         width: 100%;
         padding: 10px;
         margin-top: 5px;
@@ -76,28 +78,19 @@
 </head>
 <body>
 
-	<div class="register-container">
-        <h2>Create Your Account</h2>
-		<form action="register" method="post">
-			<label for="name">Enter Name:</label>
-			<input type="text" id="name" name="name" required="required"> 
+	<div class="transfer-container">
+		<h1>${msg }</h1>
+		<form action="transfer" method="post">
+			<label for="fromid">Enter Your Account ID:</label>
+			<input id="fromid" type="text" name="fromaccountid" required="required">
 			
-			<label for="email">Enter Email:</label>
-			<input type="text" id="email" name="email" required="required">
+			<label for="toid">Enter Receiver's Account ID:</label>
+			<input id="toid" type="text" name="toaccountid" required="required">
 			
-			<label for="password">Enter Password:</label>
-			<input type="text" id="password" name="password" required="required"> 
-			
-			<label for="phone">Enter Phone:</label>
-			<input type="text" id="phone" name="phone" required="required">
-			
-			<label for="accounttype">Enter Account Type (saving/current):</label>
-			<input type="text" id="accounttype" name="accounttype" required="required">
-			
-			<label for="deposit">Enter Initial Deposit (min-500):</label>
-			<input type="text" id="deposit" name="deposit" required="required">
-		
-			<button type="submit">Register</button>	
+			<label for="amount">Enter Transfer Amount:</label>
+			<input id="amount" name="amount" type="text" required="required">
+
+			<button type="submit">Transfer</button>			
 		</form>
 	</div>
 </body>

@@ -19,6 +19,8 @@ public class Users {
 	private long phone;
 	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL,orphanRemoval = true)
 	private Accounts account;
+	
+	
 	@Override
 	public String toString() {
 		return "Users [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", phone=" + phone
